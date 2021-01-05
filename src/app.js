@@ -1,4 +1,4 @@
-const express = require("express");
+import express from 'express'
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const app = express();
