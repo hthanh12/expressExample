@@ -1,22 +1,27 @@
 "use strict";
 
 const userController = require("../controller/userController");
-const authentication = require("../middleware/authentication")
-
+const authentication = require("../middleware/authentication");
+const validateUser = require("../middleware/userValidate");
 module.exports = (router) => {
-    router.route('/user').post(userController.create)
-    router.route('/login').post(userController.login);
-    
-    router.route('/checkToken').post(authentication.isLogged,
-        userController.checkToken
-        );
+  router.route("/user")
+    .post(validateUser.validateCreate, 
+        userController.create);
 
-    router.route('/changePassword').post(authentication.isLogged,
-          userController.changePassword);
+  router.route("/login")
+    .post(validateUser.validateLogin, 
+        userController.login);
 
-    //   router
-    //     .route("/users")
-    //     .delete(authentication.isLogged, userController.deleteUser);
+  router
+    .route("/checkToken")
+    .get(authentication.isLogged, 
+        userController.checkToken);
 
-    return router;
+  router
+    .route("/user/password")
+    .put(validateUser.validateChangepassword, 
+        authentication.isLogged, 
+        userController.changePassword);
+
+  return router;
 };

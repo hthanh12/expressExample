@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
       'User',
       {
         id: {
-          type: DataTypes.STRING,
+          type: DataTypes.INTEGER,
           primaryKey: true,
           autoIncrement:true
         },
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       {
         timestamps: false,
-        tableName: 'user'
+        tableName: 'users',
       }
       
     );
