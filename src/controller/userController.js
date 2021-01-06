@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const config = require("../config");
 
 
-
 exports.login = async (req, res) => {
   try {
     let { username, password } = req.body;
@@ -14,13 +13,12 @@ exports.login = async (req, res) => {
     if (!user) return response.notFound(res, { error: "Not found user" });
 
     const match = await bcrypt.compare(password, user.password);
-
     if (!match) return response.unauthorized(res, { error: "Wrong password" });
-    else {
-      let token = jwt.sign({ id: user.id }, config.jwt_secret);
-      delete user.dataValues.password;
-      return response.success(res, { data: { token, user } });
-    }
+    let token = jwt.sign({ id: user.id }, config.jwt_secret);
+
+    delete user.dataValues.password;
+    return response.success(res, { data: { token, user } });
+    
   } catch (error) {
     return response.error(res, { error });
   }

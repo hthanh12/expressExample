@@ -3,6 +3,7 @@
 const userController = require("../controller/userController");
 const authentication = require("../middleware/authentication");
 const validateUser = require("../middleware/userValidate");
+
 module.exports = (router) => {
   router.route("/user")
     .post(validateUser.validateCreate, 
